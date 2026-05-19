@@ -1,0 +1,53 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# docker-compose.yml
+#
+# Levanta PostgreSQL y Redis en contenedores.
+# La API de Django corre directamente en Windows (no en Docker),
+# pero se conecta a estos dos servicios que sí están en Docker.
+# ─────────────────────────────────────────────────────────────────────────────
+
+version: '3.9'
+
+services:
+
+  # ── Base de datos PostgreSQL ────────────────────────────────────────────────
+  base_de_datos:
+    image: postgres:16-alpine
+    container_name: tienda_naranja_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER:     ecommerce_user
+      POSTGRES_PASSWORD: ecommerce_pass
+      POSTGRES_DB:       tienda_naranja_db
+    ports:
+      # Puerto local:puerto del contenedor
+      # Django se conecta a localhost:5432
+      - "5432:5432"
+    volumes:
+      # Los datos persisten aunque el contenedor se reinicie
+      - datos_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ecommerce_user"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ── Redis para carrito y caché ──────────────────────────────────────────────
+  cache_y_carrito:
+    image: redis:7-alpine
+    container_name: tienda_naranja_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - datos_redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+# ── Volúmenes — los datos sobreviven al apagar los contenedores ─────────────
+volumes:
+  datos_postgres:
+  datos_redis:
