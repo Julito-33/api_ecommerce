@@ -19,8 +19,8 @@ urlpatterns = [
     # Rutas de cada módulo con su prefijo en la API
     path('api/usuarios/',  include('apps.users.urls')),
     path('api/productos/', include('apps.products.urls')),
-    # path('api/carrito/',   include('apps.cart.urls')),
-    # path('api/ordenes/',   include('apps.orders.urls')),
+    path('api/carrito/',   include('apps.cart.urls')),
+    path('api/ordenes/',   include('apps.orders.urls')),
     # path('api/pagos/',     include('apps.payments.urls')),
     # path('api/resenas/',   include('apps.reviews.urls')),
     # path('api/facturas/',  include('apps.invoices.urls')),
