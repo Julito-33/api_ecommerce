@@ -36,9 +36,10 @@ class Orden(models.Model):
 
     # Métodos de pago disponibles
     METODOS_DE_PAGO = [
-        ('stripe',       'Tarjeta de crédito/débito'),
-        ('mercadopago',  'MercadoPago'),
-    ]
+    ('tarjeta',       'Tarjeta de crédito/débito'),
+    ('transferencia', 'Transferencia bancaria'),
+    ('efectivo',      'Pago en efectivo'),
+]
 
     # El usuario que hizo la compra
     # on_delete=PROTECT para no perder el historial si se borra el usuario

@@ -21,8 +21,8 @@ urlpatterns = [
     path('api/productos/', include('apps.products.urls')),
     path('api/carrito/',   include('apps.cart.urls')),
     path('api/ordenes/',   include('apps.orders.urls')),
-    # path('api/pagos/',     include('apps.payments.urls')),
-    # path('api/resenas/',   include('apps.reviews.urls')),
+    path('api/pagos/',     include('apps.payments.urls')),
+    path('api/resenas/',   include('apps.reviews.urls')),
     # path('api/facturas/',  include('apps.invoices.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

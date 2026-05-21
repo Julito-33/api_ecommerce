@@ -75,4 +75,4 @@ class SerializadorParaCrearOrden(serializers.Serializer):
     direccion_de_envio = serializers.CharField(max_length=500)
     ciudad_de_envio    = serializers.CharField(max_length=100)
     telefono_de_envio  = serializers.CharField(max_length=20)
-    metodo_de_pago     = serializers.ChoiceField(choices=['stripe', 'mercadopago'])
+    metodo_de_pago     = serializers.ChoiceField(choices=['tarjeta', 'transferencia', 'efectivo'])
