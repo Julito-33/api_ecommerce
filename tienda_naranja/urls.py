@@ -23,7 +23,7 @@ urlpatterns = [
     path('api/ordenes/',   include('apps.orders.urls')),
     path('api/pagos/',     include('apps.payments.urls')),
     path('api/resenas/',   include('apps.reviews.urls')),
-    # path('api/facturas/',  include('apps.invoices.urls')),
+    path('api/facturas/',  include('apps.invoices.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # Lo de arriba sirve las imágenes de productos en desarrollo
