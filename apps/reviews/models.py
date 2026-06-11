@@ -41,13 +41,13 @@ class Resena(models.Model):
     escrita_en     = models.DateTimeField(auto_now_add=True)
     actualizada_en = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        db_table         = 'resenas'
-        verbose_name     = 'Reseña'
-        verbose_name_plural = 'Reseñas'
-        ordering         = ['-escrita_en']
-        # Un usuario solo puede reseñar un producto una vez
-        unique_together  = ['producto_reseñado', 'autor_de_la_resena']
+    #class Meta:
+        # db_table         = 'resenas'
+        # verbose_name     = 'Reseña'
+        # verbose_name_plural = 'Reseñas'
+        # ordering         = ['-escrita_en']
+        # # Un usuario solo puede reseñar un producto una vez
+        # unique_together  = ['producto_reseñado', 'autor_de_la_resena']
 
     def __str__(self):
         return f'{self.calificacion}★ — {self.producto_reseñado.nombre} por {self.autor_de_la_resena.full_name}'
