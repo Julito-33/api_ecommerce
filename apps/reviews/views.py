@@ -54,7 +54,17 @@ class EscribirResena(APIView):
     def post(self, request, slug_del_producto):
         producto_a_reseñar = get_object_or_404(Producto, slug=slug_del_producto)
 
-        
+        # Verificar que el usuario no haya reseñado este producto antes
+        resena_existente = Resena.objects.filter(
+            producto_reseñado=producto_a_reseñar,
+            autor_de_la_resena=request.user
+        ).exists()
+
+        if resena_existente:
+            return Response(
+                {'error': 'Ya escribiste una reseña para este producto'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         serializador = SerializadorParaEscribirResena(data=request.data)
 
@@ -62,7 +72,7 @@ class EscribirResena(APIView):
             resena_nueva = serializador.save(
                 producto_reseñado  = producto_a_reseñar,
                 autor_de_la_resena = request.user,
-                estado_de_moderacion = 'pendiente'
+                estado_de_moderacion = 'aprobada'
             )
             return Response(
                 {
